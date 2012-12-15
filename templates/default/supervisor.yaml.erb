@@ -4,13 +4,13 @@ storm.zookeeper.servers:
 - "<%= supervisor %>"
 <% end %>
 
-storm.local.dir: "/mnt/storm"
+storm.local.dir: "/home/ubuntu/storm"
 java.library.path: "/usr/local/lib"
 
 nimbus.host: "<%= node[:stormproject][:nimbus] %>"
 
 supervisor.childopts: "<% node[:stormproject][:supervisor][:childopts][:javaopts] %>"
 supervisor.slots.ports:
-<% node[:stormproject][:supervisor][:workerports].each do |supervisor| %>
-	- "<%= port %>"
+<% node[:stormproject][:supervisor][:workerports].each do |port| %>
+  - <%= port %>
 <% end %>

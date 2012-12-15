@@ -8,7 +8,6 @@
 #
 %w[ curl unzip uuid-dev python-dev openjdk-7-jdk zookeeper ].each do |pkg|
     package pkg do
-        returns [0, 100]
         action :install
     end
 end
@@ -72,6 +71,7 @@ bash "Storm install" do
   user "ubuntu"
   code <<-EOH
   cd /home/ubuntu
+  mkdir storm || true
   wget https://github.com/downloads/nathanmarz/storm/storm-0.8.1.zip
   unzip storm-0.8.1.zip
   cd storm-0.8.1

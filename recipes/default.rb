@@ -8,7 +8,8 @@
 #
 %w[ curl unzip uuid-dev python-dev openjdk-7-jdk zookeeper ].each do |pkg|
     package pkg do
-      action :install
+        returns [0, 100]
+        action :install
     end
 end
 
@@ -78,14 +79,6 @@ bash "Storm install" do
   not_if do
     ::File.exists?("/home/ubuntu/storm-0.8.1")
   end
-end
-
-template "Storm conf file" do
-  path "/home/ubuntu/storm-0.8.1/conf/storm.yaml"
-  source "nimbus.yaml.erb"
-  owner node[:deployment][:user]
-  group node[:deployment][:group]
-  mode 0644
 end
 
 

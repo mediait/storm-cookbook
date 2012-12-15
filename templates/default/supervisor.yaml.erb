@@ -1,0 +1,16 @@
+########### These MUST be filled in for a storm configuration
+storm.zookeeper.servers:
+<% node[:stormproject][:supervisors].each do |supervisor| %>
+- "<%= supervisor %>"
+<% end %>
+
+storm.local.dir: "/mnt/storm"
+java.library.path: "/usr/local/lib"
+
+nimbus.host: "<%= node[:stormproject][:nimbus] %>"
+
+supervisor.childopts: "<% node[:stormproject][:supervisor][:childopts][:javaopts] %>"
+supervisor.slots.ports:
+<% node[:stormproject][:supervisor][:workerports].each do |supervisor| %>
+	- "<%= port %>"
+<% end %>

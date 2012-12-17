@@ -4,7 +4,7 @@ storm.zookeeper.servers:
 - "<%= supervisor %>"
 <% end %>
 
-storm.local.dir: "/home/ubuntu/storm"
+storm.local.dir: "/home/<%= node[:deployment][:user] %>/mnt-storm"
 java.library.path: "/usr/local/lib"
 
 nimbus.host: "<%= node[:stormproject][:nimbus] %>"

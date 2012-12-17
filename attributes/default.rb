@@ -1,3 +1,4 @@
+default[:deployment][:ubuntu_mirror] = "sg"
 default[:deployment][:user] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"
 default[:deployment][:group] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"
 default[:stormproject][:nimbus] = "192.168.42.10"

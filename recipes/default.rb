@@ -45,11 +45,16 @@ end
 
 bash "Setup zookeeper as a daemon" do
   code <<-EOH
-  sudo ln -s /usr/share/zookeeper/bin/zkServer.sh /etc/init.d
+  sudo ln -s /usr/share/zookeeper/bin/zkServer.sh /etc/init.d/zookeeper
   EOH
   not_if do
-    ::File.exists?("/etc/init.d/zkServer.sh")
+    ::File.exists?("/etc/init.d/zookeeper")
   end
+end
+
+service "zookeeper" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :start ]
 end
 
 bash "Install zeromq 2.1.7" do

@@ -1,5 +1,7 @@
 Vagrant::Config.run do |config|
 
+  cookbook_name = File.basename(Dir.getwd)
+
   config.vm.define :nimbus do |nimbus_config|
     nimbus_config.vm.box = "precise64"
     nimbus_config.vm.host_name = "nimbus"
@@ -7,7 +9,7 @@ Vagrant::Config.run do |config|
 
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "./.."
-      chef.add_recipe("storm-project::nimbus")
+      chef.add_recipe("#{cookbook_name}::nimbus")
     end
 
   end
@@ -19,7 +21,7 @@ Vagrant::Config.run do |config|
     
     config.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "./.."
-      chef.add_recipe("storm-project::supervisor")
+      chef.add_recipe("#{cookbook_name}::supervisor")
     end
 
   end

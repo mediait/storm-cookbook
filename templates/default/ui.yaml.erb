@@ -9,10 +9,4 @@ java.library.path: "/usr/local/lib"
 
 nimbus.host: "<%= node[:stormproject][:nimbus][:host] %>"
 
-nimbus.childopts: "<%= node[:stormproject][:nimbus][:childopts] %>"
-
-topology.debug: true
-
-nimbus.task.launch.secs : 240
-supervisor.worker.start.timeout.secs: 240
-supervisor.worker.timeout.secs: 240
+ui.childopts: "<%= node[:stormproject][:ui][:childopts] %>"

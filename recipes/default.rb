@@ -7,40 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-bash "Run apt-get update once at least" do
-  code <<-EOH
-  UBUNTU_MIRROR=#{node[:deployment][:ubuntu_mirror]}
-  if [ -n "$UBUNTU_MIRROR" ]; then
-    sed -i -e "s%http://us\.archive\.ubuntu\.com%http://$UBUNTU_MIRROR.archive.ubuntu.com%g" /etc/apt/sources.list
-    sed -i -e "s%http://archive\.ubuntu\.com%http://$UBUNTU_MIRROR.archive.ubuntu.com%g" /etc/apt/sources.list
-    if [ "$?" != "0" ]; then
-      echo "Failed to update $?"
-      exit 12
-    fi
-  fi
-  apt-get update
-  EOH
-  not_if do
-    # if we did manage to install jzmq, assume we have all the pacakges already installed.
-    ::File.exists?("/usr/local/lib/libjzmq.so")
-  end
-end
-
-%w[ curl unzip build-essential pkg-config libtool autoconf git-core uuid-dev python-dev openjdk-7-jdk zookeeper ].each do |pkg|
+%w[ curl unzip build-essential pkg-config libtool autoconf git-core uuid-dev python-dev zookeeper ].each do |pkg|
     package pkg do
         retries 2
         action :install
     end
-end
-
-file "/etc/profile.d/javahome.sh" do
-  owner "root"
-  group "root"
-  mode 00755
-  action :create
-  content <<-EOH
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
-  EOH
 end
 
 bash "Setup zookeeper as a daemon" do
@@ -98,13 +69,11 @@ bash "Storm install" do
   cwd "/home/#{node[:deployment][:user]}"
   code <<-EOH
   mkdir mnt-storm || true
-  wget https://github.com/downloads/nathanmarz/storm/storm-0.8.1.zip
-  unzip storm-0.8.1.zip
-  cd storm-0.8.1
+  wget https://dl.dropbox.com/u/133901206/storm-0.8.2.zip
+  unzip storm-0.8.2.zip
+  cd storm-0.8.2
   EOH
   not_if do
-    ::File.exists?("/home/#{node[:deployment][:user]}/storm-0.8.1")
+    ::File.exists?("/home/#{node[:deployment][:user]}/storm-0.8.2")
   end
 end
-
-

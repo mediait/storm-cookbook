@@ -4,12 +4,19 @@ storm.zookeeper.servers:
 - "<%= host %>"
 <% end %>
 
-storm.local.dir: "/home/<%= node[:deployment][:user] %>/mnt-storm"
+storm.local.dir: "/home/<%= node[:deployment][:user] %>/storm-data"
 java.library.path: "/usr/local/lib"
 
-nimbus.host: "<%= node[:stormproject][:nimbus][:host] %>"
+topology.debug: true
 
+nimbus.host: "<%= node[:stormproject][:nimbus][:host] %>"
+nimbus.task.launch.secs : 240
+nimbus.childopts: "<%= node[:stormproject][:nimbus][:childopts] %>"
+ui.childopts: "<%= node[:stormproject][:ui][:childopts] %>"
 worker.childopts: "<%= node[:stormproject][:worker][:childopts] %>"
+
+supervisor.worker.start.timeout.secs: 240
+supervisor.worker.timeout.secs: 240
 supervisor.childopts: "<%= node[:stormproject][:supervisor][:childopts] %>"
 supervisor.slots.ports:
 <% node[:stormproject][:supervisor][:workerports].each do |port| %>

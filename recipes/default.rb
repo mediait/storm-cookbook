@@ -65,8 +65,8 @@ sudo make install
 end
 
 bash "Storm install" do
-  user node[:deployment][:user]
-  cwd "/home/#{node[:deployment][:user]}"
+  user node[:storm][:deploy][:user]
+  cwd "/home/#{node[:storm][:deploy][:user]}"
   code <<-EOH
   mkdir mnt-storm || true
   wget https://dl.dropbox.com/u/133901206/storm-0.8.2.zip
@@ -74,6 +74,6 @@ bash "Storm install" do
   cd storm-0.8.2
   EOH
   not_if do
-    ::File.exists?("/home/#{node[:deployment][:user]}/storm-0.8.2")
+    ::File.exists?("/home/#{node[:storm][:deploy][:user]}/storm-0.8.2")
   end
 end

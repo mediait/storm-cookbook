@@ -1,16 +1,16 @@
 include_recipe "storm"
 
 template "Storm conf file" do
-  path "/home/#{node[:deployment][:user]}/storm-0.8.2/conf/storm.yaml"
+  path "/home/#{node[:storm][:deploy][:user]}/storm-0.8.2/conf/storm.yaml"
   source "ui.yaml.erb"
-  owner node[:deployment][:user]
-  group node[:deployment][:group]
+  owner node[:storm][:deploy][:user]
+  group node[:storm][:deploy][:group]
   mode 0644
 end
 
 bash "Start ui" do
-  user node[:deployment][:user]
-  cwd "/home/#{node[:deployment][:user]}"
+  user node[:storm][:deploy][:user]
+  cwd "/home/#{node[:storm][:deploy][:user]}"
   code <<-EOH
   pid=$(pgrep -f backtype.storm.ui.core)
   if [ -z $pid ]; then

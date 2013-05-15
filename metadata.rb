@@ -1,6 +1,6 @@
-maintainer       "Hugues Malphettes"
-maintainer_email "hugues@odd-e.com"
+maintainer       "Colin Surprenant"
+maintainer_email "colin.surprenant@gmail.com"
 license          "MIT License"
-description      "Installs/Configures storm-project"
+description      "installs and configures Twitter Storm"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.0"
+version          "0.2.0"

@@ -1,24 +1,24 @@
 ########### These MUST be filled in for a storm configuration
 storm.zookeeper.servers:
-<% node[:stormproject][:supervisor][:hosts].each do |host| %>
+<% node[:storm][:supervisor][:hosts].each do |host| %>
 - "<%= host %>"
 <% end %>
 
-storm.local.dir: "/home/<%= node[:deployment][:user] %>/storm-data"
+storm.local.dir: "/home/<%= node[:storm][:deploy][:user] %>/storm-data"
 java.library.path: "/usr/local/lib"
 
 topology.debug: true
 
-nimbus.host: "<%= node[:stormproject][:nimbus][:host] %>"
+nimbus.host: "<%= node[:storm][:nimbus][:host] %>"
 nimbus.task.launch.secs : 240
-nimbus.childopts: "<%= node[:stormproject][:nimbus][:childopts] %>"
-ui.childopts: "<%= node[:stormproject][:ui][:childopts] %>"
-worker.childopts: "<%= node[:stormproject][:worker][:childopts] %>"
+nimbus.childopts: "<%= node[:storm][:nimbus][:childopts] %>"
+ui.childopts: "<%= node[:storm][:ui][:childopts] %>"
+worker.childopts: "<%= node[:storm][:worker][:childopts] %>"
 
 supervisor.worker.start.timeout.secs: 240
 supervisor.worker.timeout.secs: 240
-supervisor.childopts: "<%= node[:stormproject][:supervisor][:childopts] %>"
+supervisor.childopts: "<%= node[:storm][:supervisor][:childopts] %>"
 supervisor.slots.ports:
-<% node[:stormproject][:supervisor][:workerports].each do |port| %>
+<% node[:storm][:supervisor][:workerports].each do |port| %>
   - <%= port %>
 <% end %>

@@ -1,17 +1,17 @@
 ########### These MUST be filled in for a storm configuration
 storm.zookeeper.servers:
-<% node[:stormproject][:supervisor][:hosts].each do |host| %>
+<% node[:storm][:supervisor][:hosts].each do |host| %>
 - "<%= host %>"
 <% end %>
 
-storm.local.dir: "/home/<%= node[:deployment][:user] %>/mnt-storm"
+storm.local.dir: "/home/<%= node[:storm][:deploy][:user] %>/mnt-storm"
 java.library.path: "/usr/local/lib"
 
-nimbus.host: "<%= node[:stormproject][:nimbus][:host] %>"
+nimbus.host: "<%= node[:storm][:nimbus][:host] %>"
 
-worker.childopts: "<%= node[:stormproject][:worker][:childopts] %>"
-supervisor.childopts: "<%= node[:stormproject][:supervisor][:childopts] %>"
+worker.childopts: "<%= node[:storm][:worker][:childopts] %>"
+supervisor.childopts: "<%= node[:storm][:supervisor][:childopts] %>"
 supervisor.slots.ports:
-<% node[:stormproject][:supervisor][:workerports].each do |port| %>
+<% node[:storm][:supervisor][:workerports].each do |port| %>
   - <%= port %>
 <% end %>

@@ -69,11 +69,11 @@ bash "Storm install" do
   cwd "/home/#{node[:storm][:deploy][:user]}"
   code <<-EOH
   mkdir mnt-storm || true
-  wget https://dl.dropbox.com/u/133901206/storm-0.8.2.zip
-  unzip storm-0.8.2.zip
-  cd storm-0.8.2
+  wget https://dl.dropbox.com/u/133901206/storm-#{node[:storm][:version]}.zip
+  unzip storm-#{node[:storm][:version]}.zip
+  cd storm-#{node[:storm][:version]}
   EOH
   not_if do
-    ::File.exists?("/home/#{node[:storm][:deploy][:user]}/storm-0.8.2")
+    ::File.exists?("/home/#{node[:storm][:deploy][:user]}/storm-#{node[:storm][:version]}")
   end
 end

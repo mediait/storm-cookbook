@@ -1,7 +1,7 @@
 include_recipe "storm"
 
 template "Storm conf file" do
-  path "/home/#{node[:storm][:deploy][:user]}/storm-#{node[:storm][:version]}/conf/storm.yaml"
+  path "/home/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/conf/storm.yaml"
   source "ui.yaml.erb"
   owner node[:storm][:deploy][:user]
   group node[:storm][:deploy][:group]
@@ -14,7 +14,7 @@ bash "Start ui" do
   code <<-EOH
   pid=$(pgrep -f backtype.storm.ui.core)
   if [ -z $pid ]; then
-    nohup storm-#{node[:storm][:version]}/bin/storm ui >>ui.log 2>&1 &
+    nohup apache-storm-#{node[:storm][:version]}/bin/storm ui >>ui.log 2>&1 &
   fi
   EOH
 end

@@ -1,12 +1,13 @@
 # Storm Chef Cookbook
 
-This cookbook has been forked from [hmalphettes/storm-project-cookbook](https://github.com/hmalphettes/storm-project-cookbook) and a first pass of modifications have been made to support any Storm version (0.8.2 by default), added recipe for a single node cluster deployment, a recipe for a UI node and added/cleaned some options. I am using this cookbook with Chef Solo and Vagrant. Lots of modifications are still required to put this cookbook in better shape.
+This cookbook has been forked from [hmalphettes/storm-project-cookbook](https://github.com/hmalphettes/storm-project-cookbook) and a first pass of modifications have been made to support any Storm version
+(0.9.1-incubating by default), added recipe for a single node cluster deployment, a recipe for a UI node
+and added/cleaned some options. I am using this cookbook with Chef Solo and Vagrant.
+Lots of modifications are still required to put this cookbook in better shape.
 
 This cookbook will install the following:
 - Zookeeper, current Ubuntu package
-- ZeroMQ 2.1.7
-- JZMQ, [Nathan Marz frozen version](https://github.com/nathanmarz/jzmq)
-- Storm 0.8.2 by default but configurable
+- Storm 0.9.1-incubating by default but configurable
 
 # Requirement
 
@@ -19,13 +20,14 @@ This cookbook will install the following:
 - storm::nimbus
 - storm::supervisor
 - storm::ui
+- storm::drpc
 
-The `storm::singlenode` recipe installs nimbus, supervisor and ui on the same node.
+The `storm::singlenode` recipe installs nimbus, supervisor, drpc and ui on the same node.
 
 # Default options
 
 ```
-default[:storm][:version] = "0.8.2"
+default[:storm][:version] = "0.9.1-incubating"
 
 default[:storm][:deploy][:user] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"
 default[:storm][:deploy][:group] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"

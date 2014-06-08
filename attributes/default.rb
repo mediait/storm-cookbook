@@ -1,8 +1,8 @@
-default[:storm][:deploy][:user] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"
-default[:storm][:deploy][:group] = ::File.exists?("/home/vagrant") ? "vagrant" : "ubuntu"
+default[:storm][:deploy][:user] = ::File.exists?("/home/vagrant") ? "vagrant" : "root"
+default[:storm][:deploy][:group] = ::File.exists?("/home/vagrant") ? "vagrant" : "root"
 
-default[:storm][:nimbus][:host] = "192.168.42.10"
-default[:storm][:supervisor][:hosts] = [ "192.168.42.20" ]
+default[:storm][:nimbus][:host] = "localhost"
+default[:storm][:supervisor][:hosts] = [ "localhost" ]
 
 default[:storm][:nimbus][:childopts] = "-Xmx512m -Djava.net.preferIPv4Stack=true"
 

@@ -14,10 +14,6 @@
   end
 end
 
-execute "zookeeper-server" do
-  command "zookeeper-server start"
-end
-
 bash "Storm install" do
   user node[:storm][:deploy][:user]
   cwd "/#{node[:storm][:deploy][:user]}"

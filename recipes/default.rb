@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+user_path = node[:storm][:path][:user]
+storm_path = node[:storm][:path][:storm]
+
 %w[ curl unzip build-essential pkg-config libtool autoconf git-core uuid-dev python-dev zookeeper ].each do |pkg|
   package pkg do
     retries 2
@@ -16,14 +19,15 @@ end
 
 bash "Storm install" do
   user node[:storm][:deploy][:user]
-  cwd "/#{node[:storm][:deploy][:user]}"
+  cwd user_path
   code <<-EOH
-  mkdir storm-data || true
-  wget http://apache.mirror.iweb.ca/incubator/storm/apache-storm-#{node[:storm][:version]}/apache-storm-#{node[:storm][:version]}.zip
-  unzip apache-storm-#{node[:storm][:version]}.zip
-  cd apache-storm-#{node[:storm][:version]}
+    mkdir storm-data || true
+    wget http://apache.mirror.iweb.ca/incubator/storm/apache-storm-#{node[:storm][:version]}/apache-storm-#{node[:storm][:version]}.zip
+    unzip apache-storm-#{node[:storm][:version]}.zip
+    cd #{storm_path}
+    ln -s /opt/storm #{storm_path}
   EOH
   not_if do
-    ::File.exists?("/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}")
+    ::File.exists?(storm_path)
   end
 end

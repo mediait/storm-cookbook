@@ -1,21 +1,22 @@
 include_recipe "storm"
 
-storm_path = "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}"
+user_path = node[:storm][:path][:user]
+storm_path = node[:storm][:path][:storm]
 
 template "Storm conf file" do
-  path "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/conf/storm.yaml"
+  path "#{storm_path}/conf/storm.yaml"
   source "singlenode.yaml.erb"
   owner node[:storm][:deploy][:user]
   group node[:storm][:deploy][:group]
   mode 0644
 end
 
-file "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/lib/netty-3.6.3.Final.jar" do
+file "#{storm_path}/lib/netty-3.6.3.Final.jar" do
   action :delete
 end
 
 # Update netty to 3.9.2
-remote_file "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/lib/netty-3.9.2.Final.jar" do
+remote_file "#{storm_path}/lib/netty-3.9.2.Final.jar" do
   source "http://central.maven.org/maven2/io/netty/netty/3.9.2.Final/netty-3.9.2.Final.jar"
   action :create_if_missing
 end

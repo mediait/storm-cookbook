@@ -14,3 +14,6 @@ default[:storm][:ui][:childopts] = "-Xmx512m -Djava.net.preferIPv4Stack=true"
 
 default[:storm][:version] = "0.9.1-incubating"
 
+default[:storm][:path][:user] = "/#{node[:storm][:deploy][:user]}"
+default[:storm][:path][:storm] = "#{default[:storm][:path][:user]}/apache-storm-#{node[:storm][:version]}"
+

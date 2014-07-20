@@ -15,7 +15,7 @@ file "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/li
 end
 
 # Update netty to 3.9.2
-remote_file "/#{node[:stormcd][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/lib/netty-3.9.2.Final.jar" do
+remote_file "/#{node[:storm][:deploy][:user]}/apache-storm-#{node[:storm][:version]}/lib/netty-3.9.2.Final.jar" do
   source "http://central.maven.org/maven2/io/netty/netty/3.9.2.Final/netty-3.9.2.Final.jar"
   action :create_if_missing
 end

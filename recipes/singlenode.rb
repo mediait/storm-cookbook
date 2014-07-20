@@ -46,7 +46,7 @@ end
     mode 0644    
   end
 
-  service service_name do
+  service "storm-#{service_name}" do
     provider Chef::Provider::Service::Upstart
     supports :status => true, :restart => true, :reload => true
     action [ :enable, :start ]

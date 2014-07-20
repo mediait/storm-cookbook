@@ -25,7 +25,8 @@ bash "Storm install" do
     wget http://apache.mirror.iweb.ca/incubator/storm/apache-storm-#{node[:storm][:version]}/apache-storm-#{node[:storm][:version]}.zip
     unzip apache-storm-#{node[:storm][:version]}.zip
     cd #{storm_path}
-    ln -s /opt/storm #{storm_path}
+    rm -f /opt/storm
+    ln -s #{storm_path} /opt/storm
   EOH
   not_if do
     ::File.exists?(storm_path)

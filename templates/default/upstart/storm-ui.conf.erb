@@ -8,8 +8,8 @@ env INSTALL_DIR=/opt/storm
 env LOCAL_CACHE=$INSTALL_DIR/storm-local
 
 # What user and group to run as
-setuid storm
-setgid storm
+setuid root
+setgid root
 
 #Make sure the network is online 1st
 start on net-device-up

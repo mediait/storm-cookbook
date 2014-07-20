@@ -21,18 +21,46 @@ remote_file "#{storm_path}/lib/netty-3.9.2.Final.jar" do
   action :create_if_missing
 end
 
-['nimbus', 'supervisor', 'drpc', 'ui'].each do |service|
-  package = "backtype.storm.daemon.#{service}"
-  package = 'backtype.storm.ui.core' if service == 'ui'
+['nimbus', 'supervisor', 'drpc', 'ui'].each do |service_name|
+  package = "backtype.storm.daemon.#{service_name}"
+  package = 'backtype.storm.ui.core' if service_name == 'ui'
 
-  bash "Start #{service}" do
-    user node[:storm][:deploy][:user]
-    cwd storm_path
-    code <<-EOH
-    pid=$(pgrep -f #{package})
-    if [ -z $pid ]; then
-      ./bin/storm #{service} &
-    fi
-    EOH
+  # bash "Start #{service_name}" do
+  #   user node[:storm][:deploy][:user]
+  #   cwd storm_path
+  #   code <<-EOH
+  #   pid=$(pgrep -f #{package})
+  #   if [ -z $pid ]; then
+  #     ./bin/storm #{service_name} &
+  #   fi
+  #   EOH
+  # end
+
+  conf_file = "storm-#{service_name}.conf"
+  conf_path = "/etc/init/#{conf_file}"
+  template "Upstart #{conf_file}" do 
+    path conf_path
+    source "upstart/#{conf_file}.erb"
+    owner node[:storm][:deploy][:user]
+    group node[:storm][:deploy][:group]
+    mode 0644    
   end
+
+  service service_name do
+    provider Chef::Provider::Service::Upstart
+    supports :status => true, :restart => true, :reload => true
+    action [ :enable, :start ]
+  end  
 end
+
+
+
+
+
+
+
+
+
+
+
+

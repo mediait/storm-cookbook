@@ -22,7 +22,7 @@ bash "Storm install" do
   cwd user_path
   code <<-EOH
     mkdir storm-data || true
-    wget http://apache.mirror.iweb.ca/incubator/storm/apache-storm-#{node[:storm][:version]}/apache-storm-#{node[:storm][:version]}.zip
+    wget http://apache.mirror.iweb.ca/storm/apache-storm-#{node[:storm][:version]}/apache-storm-#{node[:storm][:version]}.zip
     unzip apache-storm-#{node[:storm][:version]}.zip
     cd #{storm_path}
     rm -f /opt/storm
